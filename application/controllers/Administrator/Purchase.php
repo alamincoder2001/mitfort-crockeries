@@ -75,7 +75,7 @@ class Purchase extends CI_Controller
             s.Supplier_Address,
             s.Supplier_Type
             from tbl_purchasemaster pm
-            join tbl_supplier s on s.Supplier_SlNo = pm.Supplier_SlNo
+            left join tbl_supplier s on s.Supplier_SlNo = pm.Supplier_SlNo
             where pm.PurchaseMaster_BranchID = '$branchId' 
             and pm.status = 'a'
             $purchaseIdClause $clauses
@@ -637,7 +637,6 @@ class Purchase extends CI_Controller
             $this->db->update('tbl_purchasemaster', $purchase);
 
             $oldPurchaseDetails = $this->db->query("select * from tbl_purchasedetails where PurchaseMaster_IDNo = ?", $purchaseId)->result();
-            $this->db->query("delete from tbl_purchasedetails where PurchaseMaster_IDNo = ?", $purchaseId);
 
             foreach($oldPurchaseDetails as $product){
                 $previousStock = $this->mt->productStock($product->Product_IDNo);
@@ -660,6 +659,7 @@ class Purchase extends CI_Controller
                     $product->Product_IDNo
                 ]);
             }
+            $this->db->query("delete from tbl_purchasedetails where PurchaseMaster_IDNo = ?", $purchaseId);
 
             foreach($data->cartProducts as $product){
                 $purchaseDetails = array(

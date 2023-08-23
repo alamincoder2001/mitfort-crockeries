@@ -61,29 +61,29 @@ class Order extends CI_Controller {
             }
 
             $sales = array(
-                'SaleMaster_InvoiceNo' => $invoice,
-                'SalseCustomer_IDNo' => $customerId,
-                'employee_id' => $data->sales->employeeId,
-                'SaleMaster_SaleDate' => $data->sales->salesDate,
-                'SaleMaster_SaleType' => $data->sales->salesType,
-                'SaleMaster_TotalSaleAmount' => $data->sales->total,
+                'SaleMaster_InvoiceNo'           => $invoice,
+                'SalseCustomer_IDNo'             => $customerId,
+                'employee_id'                    => $data->sales->employeeId,
+                'SaleMaster_SaleDate'            => $data->sales->salesDate,
+                'SaleMaster_SaleType'            => $data->sales->salesType,
+                'SaleMaster_TotalSaleAmount'     => $data->sales->total,
                 'SaleMaster_TotalDiscountAmount' => $data->sales->discount,
-                'SaleMaster_TaxAmount' => $data->sales->vat,
-                'SaleMaster_Freight' => $data->sales->transportCost,
-                'labourCost' => $data->sales->labourCost,
-                'SaleMaster_SubTotalAmount' => $data->sales->subTotal,
-                'payment_type' => $data->sales->payment_type,
-                'account_id' => $data->sales->account_id,
-                'SaleMaster_PaidAmount' => $data->sales->paid,
-                'SaleMaster_DueAmount' => $data->sales->due,
-                'SaleMaster_Previous_Due' => $data->sales->previousDue,
-                'SaleMaster_Description' => $data->sales->note,
-                'Status' => 'p',
-                'is_service' => $data->sales->isService,
-                'is_order' => 'true',
-                "AddBy" => $this->session->userdata("FullName"),
-                'AddTime' => date("Y-m-d H:i:s"),
-                'SaleMaster_branchid' => $this->session->userdata("BRANCHid")
+                'SaleMaster_TaxAmount'           => $data->sales->vat,
+                'SaleMaster_Freight'             => $data->sales->transportCost,
+                'labourCost'                     => $data->sales->labourCost,
+                'SaleMaster_SubTotalAmount'      => $data->sales->subTotal,
+                'payment_type'                   => $data->sales->payment_type,
+                'account_id'                     => $data->sales->account_id,
+                'SaleMaster_PaidAmount'          => $data->sales->paid,
+                'SaleMaster_DueAmount'           => $data->sales->due,
+                'SaleMaster_Previous_Due'        => $data->sales->previousDue,
+                'SaleMaster_Description'         => $data->sales->note,
+                'Status'                         => 'p',
+                'is_service'                     => $data->sales->isService,
+                'is_order'                       => 'true',
+                "AddBy"                          => $this->session->userdata("FullName"),
+                'AddTime'                        => date("Y-m-d H:i:s"),
+                'SaleMaster_branchid'            => $this->session->userdata("BRANCHid")
             );
     
             $this->db->insert('tbl_salesmaster', $sales);
@@ -96,15 +96,15 @@ class Order extends CI_Controller {
                 if($data->sales->account_id != null) {
                     $bankTransaction = array(
                         'transaction_date' => date('Y-m-d'),
-                        'account_id' => $data->sales->account_id,
-                        'sales_master_id' => $salesId,
+                        'account_id'       => $data->sales->account_id,
+                        'sales_master_id'  => $salesId,
                         'transaction_type' => 'deposit',
-                        'amount' => $data->sales->paid,
-                        'note' => 'Sales invoice payment in bank',
-                        'saved_by' => $this->session->userdata('userId'),
-                        'saved_datetime' => date('Y-m-d H:i:s'),
-                        'branch_id' => $this->session->userdata('BRANCHid'),
-                        'status' => 0,
+                        'amount'           => $data->sales->paid,
+                        'note'             => 'Sales invoice payment in bank',
+                        'saved_by'         => $this->session->userdata('userId'),
+                        'saved_datetime'   => date('Y-m-d H:i:s'),
+                        'branch_id'        => $this->session->userdata('BRANCHid'),
+                        'status'           => 0,
                     );
                     $this->db->insert('tbl_bank_transactions', $bankTransaction);
                 }
@@ -112,17 +112,17 @@ class Order extends CI_Controller {
     
             foreach($data->cart as $cartProduct){
                 $saleDetails = array(
-                    'SaleMaster_IDNo' => $salesId,
-                    'Product_IDNo' => $cartProduct->productId,
+                    'SaleMaster_IDNo'           => $salesId,
+                    'Product_IDNo'              => $cartProduct->productId,
                     'SaleDetails_TotalQuantity' => $cartProduct->quantity,
-                    'Purchase_Rate' => $cartProduct->purchaseRate,
-                    'SaleDetails_Rate' => $cartProduct->salesRate,
-                    'SaleDetails_Tax' => $cartProduct->vat,
-                    'SaleDetails_TotalAmount' => $cartProduct->total,
-                    'Status' => 'p',
-                    'AddBy' => $this->session->userdata("FullName"),
-                    'AddTime' => date('Y-m-d H:i:s'),
-                    'SaleDetails_BranchId' => $this->session->userdata('BRANCHid')
+                    'Purchase_Rate'             => $cartProduct->purchaseRate,
+                    'SaleDetails_Rate'          => $cartProduct->salesRate,
+                    'SaleDetails_Tax'           => $cartProduct->vat,
+                    'SaleDetails_TotalAmount'   => $cartProduct->total,
+                    'Status'                    => 'p',
+                    'AddBy'                     => $this->session->userdata("FullName"),
+                    'AddTime'                   => date('Y-m-d H:i:s'),
+                    'SaleDetails_BranchId'      => $this->session->userdata('BRANCHid')
                 );
     
                 $this->db->insert('tbl_saledetails', $saleDetails);
@@ -182,33 +182,32 @@ class Order extends CI_Controller {
             }
 
             $sales = array(
-                'SalseCustomer_IDNo' => $data->sales->customerId,
-                'employee_id' => $data->sales->employeeId,
-                'SaleMaster_SaleDate' => $data->sales->salesDate,
-                'SaleMaster_SaleType' => $data->sales->salesType,
-                'SaleMaster_TotalSaleAmount' => $data->sales->total,
+                'SalseCustomer_IDNo'             => $data->sales->customerId,
+                'employee_id'                    => $data->sales->employeeId,
+                'SaleMaster_SaleDate'            => $data->sales->salesDate,
+                'SaleMaster_SaleType'            => $data->sales->salesType,
+                'SaleMaster_TotalSaleAmount'     => $data->sales->total,
                 'SaleMaster_TotalDiscountAmount' => $data->sales->discount,
-                'SaleMaster_TaxAmount' => $data->sales->vat,
-                'SaleMaster_Freight' => $data->sales->transportCost,
-                'labourCost' => $data->sales->labourCost,
-                'SaleMaster_SubTotalAmount' => $data->sales->subTotal,
-                'payment_type' => $data->sales->payment_type,
-                'account_id' => $data->sales->account_id,
-                'SaleMaster_PaidAmount' => $data->sales->paid,
-                'SaleMaster_DueAmount' => $data->sales->due,
-                'SaleMaster_Previous_Due' => $data->sales->previousDue,
-                'SaleMaster_Description' => $data->sales->note,
-                "UpdateBy" => $this->session->userdata("FullName"),
-                'UpdateTime' => date("Y-m-d H:i:s"),
-                "SaleMaster_branchid" => $this->session->userdata("BRANCHid")
+                'SaleMaster_TaxAmount'           => $data->sales->vat,
+                'SaleMaster_Freight'             => $data->sales->transportCost,
+                'labourCost'                     => $data->sales->labourCost,
+                'SaleMaster_SubTotalAmount'      => $data->sales->subTotal,
+                'payment_type'                   => $data->sales->payment_type,
+                'account_id'                     => $data->sales->account_id,
+                'SaleMaster_PaidAmount'          => $data->sales->paid,
+                'SaleMaster_DueAmount'           => $data->sales->due,
+                'SaleMaster_Previous_Due'        => $data->sales->previousDue,
+                'SaleMaster_Description'         => $data->sales->note,
+                'Status'                         => 'p',
+                "UpdateBy"                       => $this->session->userdata("FullName"),
+                'UpdateTime'                     => date("Y-m-d H:i:s"),
+                "SaleMaster_branchid"            => $this->session->userdata("BRANCHid")
             );
     
             $this->db->where('SaleMaster_SlNo', $salesId);
             $this->db->update('tbl_salesmaster', $sales);
             
             $currentSaleDetails = $this->db->query("select * from tbl_saledetails where SaleMaster_IDNo = ?", $salesId)->result();
-            $this->db->query("delete from tbl_saledetails where SaleMaster_IDNo = ?", $salesId);
-
             foreach($currentSaleDetails as $product){
                 $this->db->query("
                     update tbl_currentinventory 
@@ -217,20 +216,21 @@ class Order extends CI_Controller {
                     and branch_id = ?
                 ", [$product->SaleDetails_TotalQuantity, $product->Product_IDNo, $this->session->userdata('BRANCHid')]);
             }
+            $this->db->query("delete from tbl_saledetails where SaleMaster_IDNo = ?", $salesId);
     
             foreach($data->cart as $cartProduct){
                 $saleDetails = array(
-                    'SaleMaster_IDNo' => $salesId,
-                    'Product_IDNo' => $cartProduct->productId,
+                    'SaleMaster_IDNo'           => $salesId,
+                    'Product_IDNo'              => $cartProduct->productId,
                     'SaleDetails_TotalQuantity' => $cartProduct->quantity,
-                    'Purchase_Rate' => $cartProduct->purchaseRate,
-                    'SaleDetails_Rate' => $cartProduct->salesRate,
-                    'SaleDetails_Tax' => $cartProduct->vat,
-                    'SaleDetails_TotalAmount' => $cartProduct->total,
-                    'Status' => 'a',
-                    'AddBy' => $this->session->userdata("FullName"),
-                    'AddTime' => date('Y-m-d H:i:s'),
-                    'SaleDetails_BranchId' => $this->session->userdata("BRANCHid")
+                    'Purchase_Rate'             => $cartProduct->purchaseRate,
+                    'SaleDetails_Rate'          => $cartProduct->salesRate,
+                    'SaleDetails_Tax'           => $cartProduct->vat,
+                    'SaleDetails_TotalAmount'   => $cartProduct->total,
+                    'Status'                    => 'p',
+                    'AddBy'                     => $this->session->userdata("FullName"),
+                    'AddTime'                   => date('Y-m-d H:i:s'),
+                    'SaleDetails_BranchId'      => $this->session->userdata("BRANCHid")
                 );
     
                 $this->db->insert('tbl_saledetails', $saleDetails);
@@ -258,15 +258,15 @@ class Order extends CI_Controller {
                     } else {
                         $bankTransaction = array(
                             'transaction_date' => date('Y-m-d'),
-                            'account_id' => $data->sales->account_id,
-                            'sales_master_id' => $salesId,
+                            'account_id'       => $data->sales->account_id,
+                            'sales_master_id'  => $salesId,
                             'transaction_type' => 'deposit',
-                            'amount' => $data->sales->paid,
-                            'note' => 'Sales invoice payment in bank',
-                            'saved_by' => $this->session->userdata('userId'),
-                            'saved_datetime' => date('Y-m-d H:i:s'),
-                            'branch_id' => $this->session->userdata('BRANCHid'),
-                            'status' => 0,
+                            'amount'           => $data->sales->paid,
+                            'note'             => 'Sales invoice payment in bank',
+                            'saved_by'         => $this->session->userdata('userId'),
+                            'saved_datetime'   => date('Y-m-d H:i:s'),
+                            'branch_id'        => $this->session->userdata('BRANCHid'),
+                            'status'           => 0,
                         );
                         $this->db->insert('tbl_bank_transactions', $bankTransaction);
                     }
@@ -325,7 +325,7 @@ class Order extends CI_Controller {
         }
 
         if(isset($data->salesId) && $data->salesId != 0 && $data->salesId != ''){
-            $clauses .= " and SaleMaster_SlNo = '$data->salesId'";
+            $clauses .= " and sm.SaleMaster_SlNo = '$data->salesId'";
             $saleDetails = $this->db->query("
                 select 
                     sd.*,

@@ -8,13 +8,14 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	
-	'username' => 'dewbxcak_admin3',
-	'password' => ')&@)nVVDO$]_',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'dewbxcak_mitfordcrobd',
-	
-// 	'username' => 'root',
-// 	'password' => '',
-// 	'database' => 'mitfort',
+
+	// 'username' => 'dewbxcak_admin3',
+	// 'password' => ')&@)nVVDO$]_',
+	// 'database' => 'dewbxcak_mitfordcrobd',
+
 		
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
